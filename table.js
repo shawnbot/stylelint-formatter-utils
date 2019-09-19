@@ -7,7 +7,7 @@ module.exports = class Table {
       beforeLine = '',
       afterLine = '',
       beforeHeaderPlaceholder,
-      afterHeaderPlaceholder,
+      afterHeaderPlaceholder
     } = options
     Object.assign(this, {
       columns,

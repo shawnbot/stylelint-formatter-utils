@@ -6,7 +6,7 @@ module.exports = {
   getHeadRef,
   getRepoURL,
   stripCwd,
-  Table,
+  Table: require('./table'),
   markdown: require('./markdown')
 }
 
