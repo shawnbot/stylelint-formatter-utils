@@ -65,7 +65,7 @@ You can get a couple of Markdown-specific helpers from the `stylelint-formatter-
 
 ```js
 const {MarkdownTable, link} = require('stylelint-formatter-utils/markdown')
-const table = new Table({
+const table = new MarkdownTable({
   columns: [
     {title: 'rule', format: ({rule}) => {
       return link(rule, `https://stylelint.io/user-guide/rules/${rule}`)
