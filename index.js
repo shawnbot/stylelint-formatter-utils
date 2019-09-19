@@ -1,14 +1,13 @@
 const {spawnSync} = require('child_process')
 const getOriginURL = require('remote-origin-url').sync
 const parseGitURL = require('git-url-parse')
-const markdown = require('./markdown')
 
 module.exports = {
   getHeadRef,
   getRepoURL,
   stripCwd,
   Table,
-  markdown
+  markdown: require('./markdown')
 }
 
 function getHeadRef() {
