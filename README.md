@@ -61,7 +61,7 @@ console.log(`this file is: ${stripCwd(__filename)}`)
 ## Markdown
 You can get a couple of Markdown-specific helpers from the `stylelint-formatter-utils/markdown` endpoint:
 
-### MarkdownTable
+### `MarkdownTable`
 
 ```js
 const {MarkdownTable, link} = require('stylelint-formatter-utils/markdown')
