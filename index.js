@@ -1,26 +1,14 @@
 const {spawnSync} = require('child_process')
 const getOriginURL = require('remote-origin-url').sync
 const parseGitURL = require('git-url-parse')
-const Table = require('./table')
-
-class MarkdownTable extends Table {
-  constructor({columns}) {
-    super({
-      delimiter: ' | ',
-      beforeLine: '| ',
-      afterLine: ' |',
-      afterHeaderPlaceholder: ':---',
-      columns
-    })
-  }
-}
+const markdown = require('./markdown')
 
 module.exports = {
   getHeadRef,
   getRepoURL,
   stripCwd,
   Table,
-  MarkdownTable
+  markdown
 }
 
 function getHeadRef() {
