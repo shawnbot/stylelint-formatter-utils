@@ -1,13 +1,13 @@
 const {spawnSync} = require('child_process')
 const getOriginURL = require('remote-origin-url').sync
 const parseGitURL = require('git-url-parse')
-const Table = require('./table')
 
 module.exports = {
   getHeadRef,
   getRepoURL,
   stripCwd,
-  Table
+  Table: require('./table'),
+  markdown: require('./markdown')
 }
 
 function getHeadRef() {

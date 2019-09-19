@@ -28,27 +28,8 @@ console.log(table.format([
 // y.css,5
 ```
 
-Want to generate a Markdown table? Easy peazy:
+Want to generate a Markdown table? Get it from the [markdown exports](#markdown).
 
-```js
-const markdown = new Table({
-  columns: [
-    {title: 'rule', format: ({rule}) => {
-      return link(rule, `https://stylelint.io/user-guide/rules/${rule}`)
-    }},
-    {title: 'path', format: ({source, line}) => {
-      return link(`${source}@${line}`, `https://github.com/my/repo/blob/master/${source}#L${line}`)
-    }}
-  ],
-  delimiter: ' | ',
-  beforeLine: '| ',
-  afterLine: ' |'
-})
-
-function link(text, url) {
-  return `[${text}](${url})`
-}
-```
 
 ## `getHeadRef()`
 Get the git head ref, which is useful for generating links to source code.
@@ -76,3 +57,28 @@ If `cwd` is not provided or empty, we get it from `process.cwd()`.
 const {stripCwd} = require('stylelint-formatter-utils')
 console.log(`this file is: ${stripCwd(__filename)}`)
 ```
+
+## Markdown
+You can get a couple of Markdown-specific helpers from the `stylelint-formatter-utils/markdown` endpoint:
+
+### MarkdownTable
+
+```js
+const {MarkdownTable, link} = require('stylelint-formatter-utils/markdown')
+const table = new MarkdownTable({
+  columns: [
+    {title: 'rule', format: ({rule}) => {
+      return link(rule, `https://stylelint.io/user-guide/rules/${rule}`)
+    }},
+    {title: 'path', format: ({source, line}) => {
+      return link(`${source}@${line}`, `https://github.com/my/repo/blob/master/${source}#L${line}`)
+    }}
+  ]
+})
+```
+
+### `markdown.link(text, url)`
+Returns a Markdown link in the format `[text](url)`.
+
+### `markdown.code(text)`
+Returns the string wrapped in backticks.

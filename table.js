@@ -1,17 +1,37 @@
 module.exports = class Table {
   constructor(options = {}) {
-    const {columns = [], delimiter = '\t', lineDelimiter = '\n', beforeLine = '', afterLine = ''} = options
+    const {
+      columns = [],
+      delimiter = '\t',
+      lineDelimiter = '\n',
+      beforeLine = '',
+      afterLine = '',
+      beforeHeaderPlaceholder,
+      afterHeaderPlaceholder
+    } = options
     Object.assign(this, {
       columns,
       delimiter,
       lineDelimiter,
       beforeLine,
-      afterLine
+      afterLine,
+      beforeHeaderPlaceholder,
+      afterHeaderPlaceholder
     })
   }
 
   header() {
-    return this.columns.map(column => this.heading(column)).join(this.delimiter)
+    let header = this.columns.map(column => this.heading(column)).join(this.delimiter)
+    header = this.wrapLine(header)
+    if (this.beforeHeaderPlaceholder) {
+      const before = this.columns.map(() => this.beforeHeaderPlaceholder).join(this.delimiter)
+      header = this.wrapLine(before) + this.lineDelimiter + header
+    }
+    if (this.afterHeaderPlaceholder) {
+      const after = this.columns.map(() => this.afterHeaderPlaceholder).join(this.delimiter)
+      header += this.lineDelimiter + this.wrapLine(after)
+    }
+    return header
   }
 
   heading(column) {
@@ -21,7 +41,11 @@ module.exports = class Table {
   row(row) {
     const cells = this.columns.map(column => this.cell(column, row))
     const content = cells.map(cell => this.escape(cell)).join(this.delimiter)
-    return `${this.beforeLine}${content}${this.afterLine}`
+    return this.wrapLine(content)
+  }
+
+  wrapLine(content) {
+    return `${this.beforeLine || ''}${content}${this.afterLine || ''}`
   }
 
   cell(column, row) {
