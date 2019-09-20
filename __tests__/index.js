@@ -13,15 +13,11 @@ describe('gatherWarnings()', () => {
     const results = [
       {
         source: 'foo.css',
-        warnings: [
-          {line: 20, rule: 'derp', text: 'hi'}
-        ]
+        warnings: [{line: 20, rule: 'derp', text: 'hi'}]
       },
       {
         source: 'bar.css',
-        warnings: [
-          {line: 1, rule: 'beep', text: 'boop'}
-        ]
+        warnings: [{line: 1, rule: 'beep', text: 'boop'}]
       }
     ]
     expect(utils.gatherWarnings(results)).toHaveLength(2)
@@ -31,9 +27,7 @@ describe('gatherWarnings()', () => {
     const results = [
       {
         source: 'foo.css',
-        warnings: [
-          {line: 20, rule: 'derp', text: 'hi'}
-        ]
+        warnings: [{line: 20, rule: 'derp', text: 'hi'}]
       }
     ]
     const warnings = utils.gatherWarnings(results)
@@ -45,9 +39,7 @@ describe('gatherWarnings()', () => {
     const results = [
       {
         source: 'foo.css',
-        warnings: [
-          {line: 20, rule: 'derp', text: 'hi'}
-        ]
+        warnings: [{line: 20, rule: 'derp', text: 'hi'}]
       }
     ]
     const warnings = utils.gatherWarnings(results)
