@@ -9,8 +9,46 @@ npm install stylelint-formatter-utils
 ## Usage
 The `stylelint-formatter-utils` module has the following exports:
 
+### `gatherWarnings(results)`
+Gathers all of the warnings for each file in the results array into a single
+array, and decorates each warning with additional data:
+
+1. `source` is the filename in which the warning occurred: the same value from
+   the parent entry in the `results` array.
+1. `links` is an object with the following keys:
+    - `file` is the URL of the source file (at the current git ref).
+    - `line` is the `file` URL with an anchor to the line that triggered the
+      warning.
+    - `rule` is a link to the rule documentation on
+      [stylelint.io](https://stylelint.io), which will not be valid for rules
+      defined in third party plugins.
+
+Use this function to prep your data for formatting with a [Table](#table):
+
+```js
+const {gatherWarnings, Table} = require('stylelint-formatter-utils')
+
+module.exports = function tableFormatter(results) {
+  const rows = gatherWarnings(results)
+  const table = new Table({columns: [ /* ... */ ]})
+  return table.format(rows)
+}
+```
+
 ### `Table`
-This is a class for outputting tabular data:
+This is a class for outputting tabular data, which is expected to be an array
+of objects with a uniform shape. The constructor takes an options object with
+the following keys:
+
+- `delimiter` (default: tab) is the string to output between cells
+- `lineDelimiter` (default: newline) is the string to output between rows
+- `beforeLine` is the optional string to output at the beginning of each row
+- `afterLine` is the optional string to output at the end of each row
+- `beforeHeaderFill` is the optional string with which to fill a
+  row between the header and the first row of data
+- `afterHeaderFill` is the optional string with which to fill a
+  row between the header and the first row of data
+
 
 ```js
 const {Table} = require('stylelint-formatter-utils')
