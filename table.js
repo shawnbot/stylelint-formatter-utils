@@ -1,34 +1,25 @@
+const defaults = {
+  columns: [],
+  delimiter: '\t',
+  lineDelimiter: '\n',
+  beforeLine: '',
+  afterLine: ''
+}
+
 module.exports = class Table {
   constructor(options = {}) {
-    const {
-      columns = [],
-      delimiter = '\t',
-      lineDelimiter = '\n',
-      beforeLine = '',
-      afterLine = '',
-      beforeHeaderPlaceholder,
-      afterHeaderPlaceholder
-    } = options
-    Object.assign(this, {
-      columns,
-      delimiter,
-      lineDelimiter,
-      beforeLine,
-      afterLine,
-      beforeHeaderPlaceholder,
-      afterHeaderPlaceholder
-    })
+    Object.assign(this, defaults, options)
   }
 
   header() {
     let header = this.columns.map(column => this.heading(column)).join(this.delimiter)
     header = this.wrapLine(header)
-    if (this.beforeHeaderPlaceholder) {
-      const before = this.columns.map(() => this.beforeHeaderPlaceholder).join(this.delimiter)
+    if (this.beforeHeaderFill) {
+      const before = this.columns.map(() => this.beforeHeaderFill).join(this.delimiter)
       header = this.wrapLine(before) + this.lineDelimiter + header
     }
-    if (this.afterHeaderPlaceholder) {
-      const after = this.columns.map(() => this.afterHeaderPlaceholder).join(this.delimiter)
+    if (this.afterHeaderFill) {
+      const after = this.columns.map(() => this.afterHeaderFill).join(this.delimiter)
       header += this.lineDelimiter + this.wrapLine(after)
     }
     return header
@@ -59,7 +50,7 @@ module.exports = class Table {
   }
 
   escape(str) {
-    return str.replace(new RegExp(`${this.delimiter}`, 'g'), ' ')
+    return String(str).replace(new RegExp(`${this.delimiter}`, 'g'), ' ')
   }
 
   format(rows) {
