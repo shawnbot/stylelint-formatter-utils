@@ -4,7 +4,7 @@ const tableOptions = {
   delimiter: ' | ',
   beforeLine: '| ',
   afterLine: ' |',
-  afterHeaderPlaceholder: ':---'
+  afterHeaderFill: ':---'
 }
 
 class MarkdownTable extends Table {
